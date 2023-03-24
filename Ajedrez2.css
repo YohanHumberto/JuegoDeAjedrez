@@ -1,0 +1,125 @@
+body {
+    background-image: url("images (1).jfif");
+    margin: 0;
+    padding: 0;
+}
+
+#Container-Ajz {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    margin: auto;
+    width: 700px;
+    height: 700px;
+    border: 4px solid rgb(106, 5, 5);
+    padding: 1px;
+}
+
+#Container-Ajz>div>button {
+    display: grid;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    font-size: 50px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: transparent;
+}
+
+#Container-Ajz>div>button:hover {
+    border: 3px solid rgb(9, 9, 50);
+}
+
+.colorClaro {
+    background-color: rgb(223, 189, 143);
+}
+
+.colorOscuro {
+    background-color: rgb(121, 80, 48);
+}
+
+/* #boton2, #boton4, #boton6, #boton8, #boton9, #boton11, #boton13, #boton15, #boton18, #boton20, #boton22, #boton24, #boton25, #boton27, #boton29, #boton31, #boton34, #boton36, #boton38, #boton40, #boton41, #boton43, #boton45, #boton47, #boton50, #boton52, #boton54, #boton56, #boton57, #boton59, #boton61, #boton63 {
+}
+
+#boton1, #boton3, #boton5, #boton7, #boton10, #boton12, #boton14, #boton16, #boton17, #boton19, #boton21, #boton23, #boton26, #boton28, #boton30, #boton32, #boton33, #boton35, #boton37, #boton39, #boton42, #boton44, #boton46, #boton48, #boton49, #boton51, #boton53, #boton55, #boton58, #boton60, #boton62, #boton64 {
+} */
+
+#CoronacionBlancas {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(74, 74, 74, 0.768);
+}
+
+#CoronacionBlancas>div {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 714px;
+    height: 714px;
+    position: relative;
+}
+
+#CoronacionBlancas>div>div>button {
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+    text-align: center;
+    cursor: pointer;
+    padding: 0px;
+    color: rgb(255, 253, 253);
+    background-color: rgb(223, 189, 143);
+}
+
+#CoronacionNegras {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(163, 163, 164, 0.381);
+}
+
+#CoronacionNegras>div {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 714px;
+    height: 714px;
+    position: relative;
+}
+
+#CoronacionNegras>div>div>button {
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+    text-align: center;
+    cursor: pointer;
+    padding: 0px;
+    background-color: rgb(223, 189, 143);
+}
+
+#randon {
+    position: absolute;
+    height: 710px;
+    width: 710px;
+    bottom: 710px;
+    left: 55.5px;
+    right: 765.5px;
+    top: 0px;
+}
+
+.option1{
+    font-size: 20px;
+}
+.option2{
+    margin-top: -100%;
+    font-size: 20px;
+}
