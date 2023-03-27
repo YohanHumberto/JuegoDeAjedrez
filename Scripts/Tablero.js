@@ -1,4 +1,9 @@
+import Alfil from "./Fichas/Alfil.js";
+import Caballo from "./Fichas/Caballo.js";
 import Peon from "./Fichas/Peon.js";
+import Rey from "./Fichas/Rey.js";
+import Reyna from "./Fichas/Reyna.js";
+import Torre from "./Fichas/Torre.js";
 
 let botonClick;
 let coronacion;
@@ -10,8 +15,6 @@ let params = ["🔵", "⚫"];
 let btnC1 = "";
 let PbtnC1 = "";
 let PetC1 = "";
-
-
 
 class Ajedrez {
 
@@ -76,29 +79,34 @@ class Ajedrez {
             { value: "", name: "", color: "" }
         ],
         [
-            { value: "♙", name: "Peon", color: "Blanco" },
-            { value: "♙", name: "Peon", color: "Blanco" },
-            { value: "♙", name: "Peon", color: "Blanco" },
-            { value: "♙", name: "Peon", color: "Blanco" },
-            { value: "♙", name: "Peon", color: "Blanco" },
-            { value: "♙", name: "Peon", color: "Blanco" },
-            { value: "♙", name: "Peon", color: "Blanco" },
-            { value: "♙", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
+            { value: "♟", name: "Peon", color: "Blanco" },
         ],
         [
-            { value: "♖", name: "Torre", color: "Blanco" },
-            { value: "♘", name: "Caballo", color: "Blanco" },
-            { value: "♗", name: "Alfil", color: "Blanco" },
-            { value: "♔", name: "Rey", color: "Blanco" },
-            { value: "♕", name: "Reyna", color: "Blanco" },
-            { value: "♗", name: "Alfil", color: "Blanco" },
-            { value: "♘", name: "Caballo", color: "Blanco" },
-            { value: "♖", name: "Torre", color: "Blanco" },
+            { value: "♜", name: "Torre", color: "Blanco" },
+            { value: "♞", name: "Caballo", color: "Blanco" },
+            { value: "♝", name: "Alfil", color: "Blanco" },
+            { value: "♚", name: "Rey", color: "Blanco" },
+            { value: "♛", name: "Reyna", color: "Blanco" },
+            { value: "♝", name: "Alfil", color: "Blanco" },
+            { value: "♞", name: "Caballo", color: "Blanco" },
+            { value: "♜", name: "Torre", color: "Blanco" },
         ],
     ];
 
     constructor() {
         this.Peon = new Peon(this.Tablero);
+        this.Caballo = new Caballo(this.Tablero);
+        this.Torre = new Torre(this.Tablero);
+        this.Alfil = new Alfil(this.Tablero);
+        this.Rey = new Rey(this.Tablero);
+        this.Reyna = new Reyna(this.Tablero, this.Alfil, this.Torre);
     }
 
     DibujarTablero() {
@@ -117,7 +125,7 @@ class Ajedrez {
 
                 const div = document.createElement("div");
                 div.className = ii % 2 != 0 ? 'colorClaro' : 'colorOscuro';
-                div.innerHTML = `<button data-name="${a.name}" data-color="${a.color}">${a.value}</button>`;
+                div.innerHTML = `<button class="${a.color}" data-name="${a.name}" data-color="${a.color}">${a.value}</button>`;
                 div.dataset.row = index;
                 div.dataset.col = i;
 
@@ -133,43 +141,33 @@ class Ajedrez {
         this.Tablero[rowOri][colOri] = { value: "", name: "", color: "" };
     }
 
-    getMovimientos(row, col, color, name) {
+    getMovimientos(row, col, name) {
         switch (name) {
             case "Peon":
-                return this.Peon.GetMovimientos(row, col, color);
+                return this.Peon.GetMovimientos(row, col);
+            case "Caballo":
+                return this.Caballo.GetMovimientos(row, col);
+            case "Alfil":
+                return this.Alfil.GetMovimientos(row, col);
+            case "Torre":
+                return this.Torre.GetMovimientos(row, col);
+            case "Reyna":
+                return this.Reyna.GetMovimientos(row, col);
+            case "Rey":
+                return this.Rey.GetMovimientos(row, col);
             default:
                 return [];
         }
     }
 
-    GetMovimientosPeon(row, col, tipo) {
-        row = parseInt(row);
-        col = parseInt(col);
-
-        const posiciones = [];
-        let rowInicial = tipo == "Negro" ? 1 : 6;
-        let nextRowNormal = row + (tipo == "Negro" ? 1 : -1);
-        let nextRowOrdinal = row + (tipo == "Negro" ? 2 : -2);
-
-        if (this.Tablero[nextRowNormal][col]?.value == "") posiciones.push({ row: nextRowNormal, col: col });
-        if (row == rowInicial && this.Tablero[nextRowOrdinal][col]?.value == "") posiciones.push({ row: nextRowOrdinal, col: col });
-        if (this.Tablero[nextRowNormal][col - 1]?.value != "" && (col - 1) >= 0) posiciones.push({ row: nextRowNormal, col: col - 1 });
-        if (this.Tablero[nextRowNormal][col + 1]?.value != "" && (col + 1) < this.Tablero.length) posiciones.push({ row: nextRowNormal, col: col + 1 });
-
-        return posiciones;
-    }
-
-    DibujarPosiblesMovimientos(color, movimientos) {
+    DibujarPosiblesMovimientos(movimientos) {
         this.borrarPosiblesMovimientos();
         movimientos.map(item => {
             const ele = document.querySelector(`[data-row="${item.row}"][data-col="${item.col}"]`)?.firstChild;
-
-            if (ele.dataset.color != color) {
-                const span = document.createElement("span");
-                span.className = ele.textContent ? "option2" : "option1";
-                span.textContent = "⚪";
-                ele.appendChild(span);
-            }
+            const span = document.createElement("span");
+            span.className = ele.textContent ? "option2" : "option1";
+            span.textContent = "🔵";
+            ele.appendChild(span);
         });
     }
 

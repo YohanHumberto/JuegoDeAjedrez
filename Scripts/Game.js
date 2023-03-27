@@ -49,8 +49,8 @@ class Game {
                 this.fichaSeleccionada.col = col;
                 this.fichaSeleccionada.color = color;
                 this.fichaSeleccionada.name = name;
-                const movimientos = this.ajedrez.getMovimientos(row, col, color, name);
-                this.ajedrez.DibujarPosiblesMovimientos(color, movimientos)
+                const movimientos = this.ajedrez.getMovimientos(row, col, name);
+                this.ajedrez.DibujarPosiblesMovimientos(movimientos)
             }
         }
 
@@ -59,7 +59,7 @@ class Game {
     moverFicha(e) {
         const dataset = e.target.parentElement.dataset;
         const { row, col, color, name } = this.fichaSeleccionada;
-        const movimientos = this.ajedrez.getMovimientos(row, col, color, name);
+        const movimientos = this.ajedrez.getMovimientos(row, col, name);
         const ele = movimientos.find(a => a.row == dataset.row && a.col == dataset.col);
 
         if (ele) {
@@ -70,10 +70,6 @@ class Game {
             this.fichaSeleccionada.color = null;
             this.fichaSeleccionada.name = null;
         }
-        // else{
-        //     alertify.dismissAll();
-        //     alertify.notify('invalid movement', 'warning', 2); 
-        // }
     }
 
 }
